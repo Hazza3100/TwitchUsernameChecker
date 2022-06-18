@@ -1,4 +1,4 @@
-# TwitchUserCheck
+# Twitch Username Check
 Twitch Username Checker
 
 
