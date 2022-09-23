@@ -3,7 +3,5 @@
 
 ## About
 ```
-Just Checks if page is valid or not
-
-Some banned accounts will not work
+- Will add ban check at 20 stars
 ```
