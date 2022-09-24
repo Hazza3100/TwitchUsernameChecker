@@ -3,5 +3,5 @@
 
 ## About
 ```
-- Will add ban check at 20 stars
+- Will add ban checker at 20 stars
 ```
