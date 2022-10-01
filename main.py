@@ -24,7 +24,7 @@ def check():
         data = '[{"operationName":"UsernameValidator_User","variables":{"username":"'+username+'"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"fd1085cf8350e309b725cf8ca91cd90cac03909a3edeeedbd0872ac912f3d660"}}}]'
 
         r = requests.post('https://gql.twitch.tv/gql', headers=headers, data=data)
-        res = (r.json()[0]["data"]["isUsernameAvailable"])
+        res = r.json()[0]["data"]["isUsernameAvailable"]
         if res == True:
             stats.alive += 1
             stats.checked += 1
