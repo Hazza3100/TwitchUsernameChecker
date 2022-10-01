@@ -3,6 +3,6 @@
 
 ## About
 ```
-- Will add ban checker at 20 stars
+- Ban checks 4 letter strings
 ```
 
