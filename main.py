@@ -28,12 +28,12 @@ def check():
         if res == True:
             stats.alive += 1
             stats.checked += 1
-            print(f"{Fore.YELLOW}Status{Fore.RESET} {Fore.MAGENTA}|{Fore.RESET} {Fore.GREEN}+{Fore.RESET} [{username}]")
+            print(f"{Fore.GREEN}+{Fore.RESET} [{username}]")
             open('available.txt', 'a').write(f"{username}\n")
         else:
             stats.taken += 1
             stats.checked += 1
-            print(f"{Fore.YELLOW}Status{Fore.RESET} {Fore.MAGENTA}|{Fore.RESET} {Fore.RED}-{Fore.RESET} [{username}]")
+            print(f"{Fore.RED}-{Fore.RESET} [{username}]")
 
 
 
