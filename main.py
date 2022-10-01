@@ -1,34 +1,44 @@
+import os
+import random
+import string
 import requests
 import threading
-import random
- # star for ban checker
-from colorama import Fore, init
 
-init(convert=True)
- # star for ban checker
- # star for ban checker
+from colorama import Fore
+
+
+class stats():
+    alive = 0
+    taken = 0
+    checked = 0
+
+
 def check():
+    while True:
+        os.system(f"title Twitch User Check ^| Available: {stats.alive} ^| Taken: {str(stats.taken)} ^| Checked: {str(stats.checked)}")
+        username = "".join(random.SystemRandom().choice(string.ascii_lowercase)for _ in range(4))
 
-    usersf = open("users.txt")
-    user = random.choice(usersf.read().splitlines())
-    usersf.close()
+        headers = {
+            'Accept': '*/*','Accept-Language': 'en-GB','Client-Id': 'kimne78kx3ncx6brgo4mv6wki5h1ko','Connection': 'keep-alive','Content-Type': 'text/plain;charset=UTF-8','Origin': 'https://www.twitch.tv','Referer': 'https://www.twitch.tv/','Sec-Fetch-Dest': 'empty','Sec-Fetch-Mode': 'cors','Sec-Fetch-Site': 'same-site','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36','sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': '"Windows"',}
 
-    r = requests.get(f'https://www.twitch.tv/{user}')
-    if r.status_code == 200:
-        print(Fore.RED + f"Taken | {Fore.RESET}{user}\n")
-    else:
-        print(Fore.GREEN + f"Available {Fore.RESET}| {user}\n")
-        t = open('valid.txt', 'a')
-        t.write(f'{user}\n')
- # star for ban checker
- # star for ban checker
- # star for ban checker
-def start():
-    r = input("Amount of users to check: ")
-    for i in range(int(r)):
-        x = threading.Thread(target=check)
-        x.start()
- # star for ban checker
- # star for ban checker
-start()
- # star for ban checker
+        data = '[{"operationName":"UsernameValidator_User","variables":{"username":"'+username+'"},"extensions":{"persistedQuery":{"version":1,"sha256Hash":"fd1085cf8350e309b725cf8ca91cd90cac03909a3edeeedbd0872ac912f3d660"}}}]'
+
+        r = requests.post('https://gql.twitch.tv/gql', headers=headers, data=data)
+        res = (r.json()[0]["data"]["isUsernameAvailable"])
+        if res == True:
+            stats.alive += 1
+            stats.checked += 1
+            print(f"{Fore.YELLOW}Status{Fore.RESET} {Fore.MAGENTA}|{Fore.RESET} {Fore.GREEN}+{Fore.RESET} [{username}]")
+            open('available.txt', 'a').write(f"{username}\n")
+        else:
+            stats.taken += 1
+            stats.checked += 1
+            print(f"{Fore.YELLOW}Status{Fore.RESET} {Fore.MAGENTA}|{Fore.RESET} {Fore.RED}-{Fore.RESET} [{username}]")
+
+
+
+
+os.system('cls')
+threads = int(input("Threads > "))
+for _ in range(threads):
+    threading.Thread(target=check).start()
